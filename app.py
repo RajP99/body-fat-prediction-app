@@ -30,7 +30,7 @@ def predict():
 		rfr = pickle.load(open('rfr.pkl', 'rb'))
 		prediction = rfr.predict(temp)
 		print("Prediction: ", prediction)        
-		return jsonify({'prediction': str(prediction)})
+		return jsonify({'prediction': str(prediction[0])})
 
 	except:        
 		return jsonify({'trace': traceback.format_exc()})
