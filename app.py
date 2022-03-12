@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import pickle
 import os
 import traceback
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
