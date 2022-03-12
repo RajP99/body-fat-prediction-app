@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import pickle
 import os
 import traceback
+from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
 
@@ -14,10 +15,13 @@ def predict():
 	try:
 		json = request.get_json()	 
 		temp=list(json[0].values())
+		temp = np.array([temp])
+		SC=StandardScaler()
+		temp = SC.transform(temp)
 		rfr = pickle.load(open('rfr.pkl', 'rb'))
-		prediction = rfr.predict([temp])
+		prediction = rfr.predict(temp)
 		print("Prediction: ", prediction)        
-		return jsonify({'prediction': str(prediction[0][1]*100)})
+		return jsonify({'prediction': str(prediction)})
 
 	except:        
 		return jsonify({'trace': traceback.format_exc()})
